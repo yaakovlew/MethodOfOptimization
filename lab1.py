@@ -1,9 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import sympy as sp
+
 sp.init_printing()
 
-#Построение графиков
+# Построение графиков
 x = np.linspace(0, 10, 1000)
 
 y1 = 2 * x
@@ -21,18 +22,16 @@ plt.ylim((0, 5))
 plt.xlabel(r'$x$')
 plt.ylabel(r'$y$')
 
-
 ##Раскраска области решения
 
-y5 =np.minimum(y2, np.minimum(y1, y4))
+y5 = np.minimum(y2, np.minimum(y1, y4))
 y6 = y3
 
-plt.fill_between(x, y5, y6, where=y5>y6, color='grey', alpha=0.5)
+plt.fill_between(x, y5, y6, where=y5 > y6, color='grey', alpha=0.5)
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 plt.show()
 
-
-#Нахождение точек пересечения прямых
+# Нахождение точек пересечения прямых
 
 sp.var('x y F')
 
@@ -48,25 +47,23 @@ x_second_intersection_point = sp.solve(sp.Eq(y1, y4), x)[0]
 x_third_intersection_point = sp.solve(sp.Eq(y2, y3), x)[0]
 x_fourth_intersection_point = sp.solve(sp.Eq(y2, y4), x)[0]
 
-
 y_first_intersection_point = float(y1.subs([(x, x_first_intersection_point)]))
 y_second_intersection_point = float(y1.subs([(x, x_second_intersection_point)]))
 y_third_intersection_point = float(y2.subs([(x, x_third_intersection_point)]))
 y_fourth_intersection_point = float(y2.subs([(x, x_fourth_intersection_point)]))
 
+# Нахождение минимального значения целевой функции и аргументов, при которых достигается минимум функции
 
-#Нахождение минимального значения целевой функции и аргументов, при которых достигается минимум функции
-
-min_count_of_function =  min(
-                            F.subs([(x, x_first_intersection_point), (y, y_first_intersection_point)]),
-                            F.subs([(x, x_second_intersection_point), (y, y_second_intersection_point)]),
-                            F.subs([(x, x_third_intersection_point), (y, y_third_intersection_point)]),
-                            F.subs([(x, x_fourth_intersection_point), (y, y_fourth_intersection_point)])
-                            )
+min_count_of_function = min(
+    F.subs([(x, x_first_intersection_point), (y, y_first_intersection_point)]),
+    F.subs([(x, x_second_intersection_point), (y, y_second_intersection_point)]),
+    F.subs([(x, x_third_intersection_point), (y, y_third_intersection_point)]),
+    F.subs([(x, x_fourth_intersection_point), (y, y_fourth_intersection_point)])
+)
 
 print("Минимальное значение функции: ", round(min_count_of_function, 2))
 
-if(F.subs([(x, x_first_intersection_point), (y, y_first_intersection_point)]) == min_count_of_function):
+if (F.subs([(x, x_first_intersection_point), (y, y_first_intersection_point)]) == min_count_of_function):
     x_args = x_first_intersection_point
     y_args = y_first_intersection_point
 elif (F.subs([(x, x_second_intersection_point), (y, y_second_intersection_point)]) == min_count_of_function):
